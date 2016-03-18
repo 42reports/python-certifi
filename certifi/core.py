@@ -10,6 +10,8 @@ This module returns the installation location of cacert.pem.
 import os
 import warnings
 
+DEB_SSL_CA_FILE = '/etc/ssl/certs/ca-certificates.crt'
+
 
 class DeprecatedBundleWarning(DeprecationWarning):
     """
@@ -19,6 +21,9 @@ class DeprecatedBundleWarning(DeprecationWarning):
 
 
 def where():
+    if os.path.exists(DEB_SSL_CA_FILE):
+        return DEB_SSL_CA_FILE
+
     f = os.path.split(__file__)[0]
 
     return os.path.join(f, 'cacert.pem')
